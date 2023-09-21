@@ -55,10 +55,10 @@ function AddRecipe({ onAdd }) {
                 value={newRecipe.image}
                 onChange={(e) => setNewRecipe({ ...newRecipe, image: e.target.value})}
             >
-                <option value="tuna.png">Image 1</option>
-                <option value="cheese.png"> Image 2</option>
-                <option value="tomato.png">Image 3</option>
-                <option value="ham.png"> Image 4</option>
+                <option value="tuna.jpeg">Image 1</option>
+                <option value="cheese.jpeg"> Image 2</option>
+                <option value="tomato.jpeg">Image 3</option>
+                <option value="ham.jpeg"> Image 4</option>
             </select>
             <button type="submit">Add Recipe</button>
         </form>

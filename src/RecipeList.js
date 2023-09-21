@@ -1,33 +1,19 @@
-import React, { useState, useEffect } from "react";
-import recipesData from "./recipes.json";
-import AddRecipe from "./AddRecipe";
+import React from "react";
 
-function RecipeList() {
-    const [recipes, setRecipes] = useState([]);
 
-    useEffect(() => {
-        setRecipes(recipesData);
-    }, []);
-
-    const addNewRecipe = (recipe) => {
-        recipe.id = recipes.length + 1;
-        setRecipes([...recipes, recipe]);
-    };
-
-    const removeRecipe = (id) => {
-        setRecipes(recipes.filter((recipe) => recipe.id !== id));
-    };
-
+function RecipeList({recipes, onRemove}) {
     return (
         <div>
             {recipes.map((recipe) => (
                 <div key={recipe.id}>
                     <h2>{recipe.name}</h2>
+                    <img src={process.env.PUBLIC_URL + `./${recipe.image}`} alt={recipe.name} />
+                    <p><strong>Ingredients:</strong> {recipe.ingredients}</p>
+                    <p><strong>Directions:</strong> {recipe.directions}</p>
                     <p>{recipe.description}</p>
-                    <button onClick={() => removeRecipe(recipe.id)}>Remove</button>
+                    <button onClick={() => onRemove(recipe.id)}>Remove</button>
                 </div>
             ))}
-            <AddRecipe onAdd={addNewRecipe} />
         </div>
     );
 }

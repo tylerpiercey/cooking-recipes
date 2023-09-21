@@ -5,7 +5,7 @@
         "ingredients": "salt, pepper, tuna flakes, mayonnaise, bread",
         "directions": "add all ingredients to bowl and mix",
         "description": "yummy tuna sandwiches",
-        "image": "tuna.jpg" 
+        "image": "tuna.jpeg" 
 
     },
     {
@@ -14,7 +14,7 @@
         "ingredients": "cheese, mayonnaise, bread",
         "directions": "lay cheese on bread make a sandwich",
         "description": "yummy cheese sandwiches",
-        "image": "cheese.jpg"
+        "image": "cheese.jpeg"
     },
     {
         "id": 3,
@@ -22,7 +22,7 @@
         "ingredients": "salt, pepper, tomatoe, mayonnaise, bread",
         "directions": "slice tomatoes and lay on bread",
         "description": "yummy tomatoe sandwiches",
-        "image": "tomatoe.jpg"
+        "image": "tomato.jpeg"
     },
     {
         "id": 4,
@@ -30,6 +30,6 @@
         "ingredients": "ham, mayonnaise, bread",
         "directions": "lay ham on top of bread spread mayonniase",
         "description": "yummy ham sandwiches",
-        "image": "ham.jpg"
+        "image": "ham.jpeg"
     }
 ]
