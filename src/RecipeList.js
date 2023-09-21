@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import recipesData from "./recipes.json";
+import AddRecipe from "./AddRecipe";
 
 function RecipeList() {
     const [recipes, setRecipes] = useState([]);
@@ -7,6 +8,11 @@ function RecipeList() {
     useEffect(() => {
         setRecipes(recipesData);
     }, []);
+
+    const addNewRecipe = (recipe) => {
+        recipe.id = recipes.length + 1;
+        setRecipes([...recipes, recipe]);
+    };
 
     const removeRecipe = (id) => {
         setRecipes(recipes.filter((recipe) => recipe.id !== id));
@@ -21,6 +27,7 @@ function RecipeList() {
                     <button onClick={() => removeRecipe(recipe.id)}>Remove</button>
                 </div>
             ))}
+            <AddRecipe onAdd={addNewRecipe} />
         </div>
     );
 }

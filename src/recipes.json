@@ -2,7 +2,7 @@
     {
         "id": 1,
         "name": "tuna sandwich",
-        "indredients": "salt, pepper, tuna flakes, mayonnaise, bread",
+        "ingredients": "salt, pepper, tuna flakes, mayonnaise, bread",
         "directions": "add all ingredients to bowl and mix",
         "description": "yummy tuna sandwiches",
         "image": "tuna.jpg" 
@@ -11,23 +11,23 @@
     {
         "id": 2,
         "name": "cheese sandwich",
-        "indredients": "cheese, mayonnaise, bread",
+        "ingredients": "cheese, mayonnaise, bread",
         "directions": "lay cheese on bread make a sandwich",
         "description": "yummy cheese sandwiches",
         "image": "cheese.jpg"
     },
     {
-        "id": 1,
-        "name": "tomatoe sandwich",
-        "indredients": "salt, pepper, tomatoe, mayonnaise, bread",
+        "id": 3,
+        "name": "tomato sandwich",
+        "ingredients": "salt, pepper, tomatoe, mayonnaise, bread",
         "directions": "slice tomatoes and lay on bread",
         "description": "yummy tomatoe sandwiches",
         "image": "tomatoe.jpg"
     },
     {
-        "id": 1,
+        "id": 4,
         "name": "ham, sandwich",
-        "indredients": "ham, mayonnaise, bread",
+        "ingredients": "ham, mayonnaise, bread",
         "directions": "lay ham on top of bread spread mayonniase",
         "description": "yummy ham sandwiches",
         "image": "ham.jpg"
