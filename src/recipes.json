@@ -19,9 +19,9 @@
     {
         "id": 3,
         "name": "tomato sandwich",
-        "ingredients": "salt, pepper, tomatoe, mayonnaise, bread",
-        "directions": "slice tomatoes and lay on bread",
-        "description": "yummy tomatoe sandwiches",
+        "ingredients": "salt, pepper, tomato, mayonnaise, bread",
+        "directions": "slice tomatos and lay on bread",
+        "description": "yummy tomato sandwiches",
         "image": "tomato.jpeg"
     },
     {

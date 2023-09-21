@@ -4,6 +4,7 @@ import recipesData from './recipes.json';
 import Navbar from './Navbar';
 import RecipeList from './RecipeList';
 import AddRecipe from './AddRecipe';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 function App() {
   const [recipes, setRecipes] = useState([]);
