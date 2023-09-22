@@ -6,7 +6,8 @@ function NavbarComponent() {
     return (
         <Navbar bg="light" expand="lg">
             <Navbar.Brand as={Link} to="/"> Recipe App</Navbar.Brand>
-            <Navbar.Collapse>
+            <Navbar.Toggle aria-controls='navbar-collapse-content' />
+            <Navbar.Collapse id='navbar-collapse-content'>
                 <Nav className='mr-auto'>
                     <Nav.Link as={Link} to="/">All Recipes</Nav.Link>
                     <Nav.Link as={Link} to="/add-recipe">Add Recipe</Nav.Link>
