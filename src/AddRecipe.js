@@ -1,5 +1,6 @@
 import React, {useState} from "react";
 import { Form, Button, Container, Row, Col } from 'react-bootstrap';
+import axios from 'axios';
 
 function AddRecipe({ onAdd }) {
     const [newRecipe, setNewRecipe] = useState({
@@ -8,22 +9,39 @@ function AddRecipe({ onAdd }) {
         ingredients: '',
         directions: '',
         description: '',
-        image: ''
+        image: null
     });
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
-        if (newRecipe.name && newRecipe.ingredients && newRecipe.directions) {
-            onAdd(newRecipe);
-            setNewRecipe({
-                id: '',
-                name: '',
-                ingredients: '',
-                directions: '',
-                description: '',
-                image: ''
-            });
-        } else {
+        if (newRecipe.name && newRecipe.ingredients && newRecipe.directions && newRecipe.image) {
+            const formData = new FormData();
+            formData.append('name', newRecipe.name);
+            formData.append('ingredients', newRecipe.ingredients);
+            formData.append('directions', newRecipe.directions);
+            formData.append('description', newRecipe.description);
+            formData.append('image', newRecipe.image); 
+
+            try {
+                await axios.post('/api/recipes', formData, {
+                    headers: {
+                        'Content-Type' : 'multipart/form-data'
+                    }
+                });
+                onAdd(newRecipe);
+                setNewRecipe({
+                    id: '',
+                    name: '',
+                    ingredients: '',
+                    directions: '',
+                    description: '',
+                    image: null
+                });
+            }  catch (error) {
+                console.error("Error adding recipe:", error);
+                alert("Failed to add recipe.");
+            }
+        }else {
             alert("Please fill out all fields.");
         }
     };
@@ -75,17 +93,11 @@ function AddRecipe({ onAdd }) {
                         </Form.Group>
                         
                         <Form.Group>
-                            <Form.Label>Select Image</Form.Label>
+                            <Form.Label>Upload Image</Form.Label>
                             <Form.Control
-                                as="select"
-                                value={newRecipe.image}
-                                onChange={(e) => setNewRecipe({ ...newRecipe, image: e.target.value})}
-                            >
-                                <option value="tuna.jpeg"> Image 1 </option>
-                                <option value="cheese.jpeg"> Image 2 </option>
-                                <option value="tomato.jpeg"> Image 3 </option>
-                                <option value="ham.jpeg"> Image 4 </option>
-                            </Form.Control>
+                                type="file"
+                                onChange={(e) => setNewRecipe({ ...newRecipe, image: e.target.files[0] })}
+                            />
                         </Form.Group>
                         
                         <Button type="submit">Add Recipe</Button>
@@ -97,3 +109,4 @@ function AddRecipe({ onAdd }) {
 }
 
 export default AddRecipe;
+

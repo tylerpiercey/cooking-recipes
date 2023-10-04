@@ -1,3 +1,4 @@
+require('dotenv').config();
 const express = require('express');
 const cors = require('cors');
 const path = require('path');
@@ -10,11 +11,12 @@ app.use(cors());
 app.use(express.json());
 app.use(express.static('build'));
 app.use('/uploads', express.static('uploads'));
-mongoose.connect('mongodb://127.0.0.1:27017/cooking-recipes', {useNewUrlParser: true, useUnifiedTopology: true})
+const MONGODB_URI = process.env.MONGODB_URI || 'mongodb://127.0.0.1:27017/cooking-recipes';
+mongoose.connect(MONGODB_URI, {useNewUrlParser: true, useUnifiedTopology: true})
 .then(() => console.log('Connected to MongoDB'))
 .catch((error) => console.error('Could not connect to MongoDB', error));
 
-const API_WEB_KEY = "root";
+const API_WEB_KEY = process.env.API_WEB_KEY || "default_key";
 const storage = multer.diskStorage({
     destination: (req, file, cb) => {
         cb(null, 'uploads/');
@@ -23,9 +25,20 @@ const storage = multer.diskStorage({
         cb(null, file.fieldname + '-' + Date.now() + path.extname(file.originalname));
     }
 });
-const upload = multer({ storage: storage });
+const upload = multer({ 
+    storage: storage,
+    fileFilter: function (req, file, cb) {
+        const filetypes = /jpeg|jpg|png/;
+        const extname = filetypes.test(path.extname(file.originalname).toLowerCase());
+        const mimetype = filetypes.test(file.mimetype);
+        if (mimetype && extname) {
+            return cb(null, true);
+        }
+        cb("Error: File upload only supports the following filetypes- " + filetypes);
+    } 
+});
 
-app.post('/api/recipes', upload.single('image'), (req, res) => {
+app.post('/api/recipes', upload.single('image'), async (req, res) => {
     const newRecipe = new Recipe({
         name:req.body.name,
         ingredients: req.body.ingredients,
@@ -34,10 +47,12 @@ app.post('/api/recipes', upload.single('image'), (req, res) => {
         image: req.file.path
     });
 
-    newRecipe.save((err, savedRecipe) => {
-        if(err) return res.status(500).send(err);
+    try {
+        const savedRecipe = await newRecipe.save();
         res.status(200).send(savedRecipe);
-    });
+    } catch (err) {
+        return res.status(500).send(err);
+    }
 });
 
 app.post('/api/uploadRecipes', (req, res) => {
@@ -61,6 +76,11 @@ app.get('/api/recipes', (req, res) => {
 app.get('*', (req, res) => {
     res.sendFile(path.resolve(__dirname, 'build', 'index.html'));
 });
+
+app.use((err, req, res, next) => {
+    console.error(err.stack);
+    res.status(500).send('Something broke!');
+  });
 
 const PORT = process.env.PORT || 3001;
 app.listen(PORT, () => {
